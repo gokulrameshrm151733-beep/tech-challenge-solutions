@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assessment Questions & Answers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Online Assessment Questions & Answers</h1>
+
+    <!-- Problem 1 Section -->
+    <div class="box">
+        <h2>Problem 1: Maintain Latest Answers</h2>
+        
+        <div class="label">Input (Answer Updates):</div>
+        <pre id="input1"></pre>
+
+        <div class="label">Output (Final Latest Answers):</div>
+        <pre id="output1">Loading...</pre>
+    </div>
+
+    <!-- Problem 2 Section -->
+    <div class="box">
+        <h2>Problem 2: University Student Performance Summary</h2>
+        
+        <div class="label">Input (Student Records):</div>
+        <pre id="input2"></pre>
+
+        <div class="label">Output (University Summary):</div>
+        <pre id="output2">Loading...</pre>
+    </div>
+
+    <script>
+        // ==========================================
+        // PROBLEM 1 DATA & LOGIC
+        // ==========================================
+        const updates = [
+            { questionId: 1, answer: "A", timestamp: 100 },
+            { questionId: 2, answer: "C", timestamp: 110 },
+            { questionId: 1, answer: "B", timestamp: 120 },
+            { questionId: 3, answer: "D", timestamp: 130 },
+            { questionId: 2, answer: "A", timestamp: 105 }
+        ];
+
+        // Display input on the page
+        document.getElementById("input1").textContent = JSON.stringify(updates, null, 2);
+
+        function getLatestAnswers(updates) {
+            const answers = {};
+
+            updates.forEach(update => {
+                const id = update.questionId;
+                if (!answers[id] || update.timestamp > answers[id].timestamp) {
+                    answers[id] = {
+                        answer: update.answer,
+                        timestamp: update.timestamp
+                    };
+                }
+            });
+
+            const result = {};
+            for (const id in answers) {
+                result[id] = answers[id].answer;
+            }
+
+            return result;
+        }
+
+        // Display output on the page
+        const finalAnswers = getLatestAnswers(updates);
+        document.getElementById("output1").textContent = JSON.stringify(finalAnswers, null, 2);
+
+
+        // ==========================================
+        // PROBLEM 2 DATA & LOGIC
+        // ==========================================
+        const studentRecords = [
+            { studentId: 1, university: "CHRIST", score: 85 },
+            { studentId: 2, university: "CHRIST", score: 70 },
+            { studentId: 3, university: "ABC", score: 90 },
+            { studentId: 4, university: "ABC", score: 60 },
+            { studentId: 5, university: "CHRIST", score: 95 }
+        ];
+
+        // Display input on the page
+        document.getElementById("input2").textContent = JSON.stringify(studentRecords, null, 2);
+
+        function getUniversitySummary(records) {
+            const summary = {};
+
+            records.forEach(record => {
+                const uni = record.university;
+                const score = record.score;
+
+                if (!summary[uni]) {
+                    summary[uni] = {
+                        totalStudents: 0,
+                        totalScore: 0,
+                        highestScore: score
+                    };
+                }
+
+                summary[uni].totalStudents += 1;
+                summary[uni].totalScore += score;
+
+                if (score > summary[uni].highestScore) {
+                    summary[uni].highestScore = score;
+                }
+            });
+
+            const result = {};
+            for (const uni in summary) {
+                const data = summary[uni];
+                result[uni] = {
+                    totalStudents: data.totalStudents,
+                    averageScore: Number((data.totalScore / data.totalStudents).toFixed(2)),
+                    highestScore: data.highestScore
+                };
+            }
+
+            return result;
+        }
+
+        // Display output on the page
+        const finalSummary = getUniversitySummary(studentRecords);
+        document.getElementById("output2").textContent = JSON.stringify(finalSummary, null, 2);
+    </script>
+
+</body>
+</html>
