@@ -59,9 +59,7 @@
     </div>
 
     <script>
-        // ==========================================
-        // PROBLEM 1 DATA & LOGIC
-        // ==========================================
+        
         const updates = [
             { questionId: 1, answer: "A", timestamp: 100 },
             { questionId: 2, answer: "C", timestamp: 110 },
@@ -70,7 +68,7 @@
             { questionId: 2, answer: "A", timestamp: 105 }
         ];
 
-        // Display input on the page
+        
         document.getElementById("input1").textContent = JSON.stringify(updates, null, 2);
 
         function getLatestAnswers(updates) {
@@ -94,14 +92,12 @@
             return result;
         }
 
-        // Display output on the page
+        
         const finalAnswers = getLatestAnswers(updates);
         document.getElementById("output1").textContent = JSON.stringify(finalAnswers, null, 2);
 
+    
 
-        // ==========================================
-        // PROBLEM 2 DATA & LOGIC
-        // ==========================================
         const studentRecords = [
             { studentId: 1, university: "CHRIST", score: 85 },
             { studentId: 2, university: "CHRIST", score: 70 },
@@ -110,7 +106,7 @@
             { studentId: 5, university: "CHRIST", score: 95 }
         ];
 
-        // Display input on the page
+        
         document.getElementById("input2").textContent = JSON.stringify(studentRecords, null, 2);
 
         function getUniversitySummary(records) {
@@ -149,7 +145,7 @@
             return result;
         }
 
-        // Display output on the page
+        
         const finalSummary = getUniversitySummary(studentRecords);
         document.getElementById("output2").textContent = JSON.stringify(finalSummary, null, 2);
     </script>
